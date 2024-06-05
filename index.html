@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <script>
+        function extractContent(input) {
+    const numberOfLines = parseInt(input[0], 10);
+    const lines = input.slice(1, numberOfLines + 1);
+    const results = [];
+    
+    lines.forEach(line => {
+        let matches = [];
+        let regex = /<([^<>]+)>([^<]+)<\/\1>/g;
+        let match;
+        
+        while ((match = regex.exec(line)) !== null) {
+            matches.push(match[2]);
+        }
+        
+        if (matches.length > 0) {
+            results.push(...matches);
+        } else {
+            results.push("None");
+        }
+    });
+
+    return results;
+}
+
+// Sample Input
+const input = [
+    "4",
+    "<h1>Nayeem loves counseling</h1>",
+    "<h1><h1>Sanjay has no watch</h1></h1><par>So wait for a while</par>",
+    "<Amee>safat codes like a ninja</amee>",
+    "<SA premium>Imtiaz has a secret crush</SA premium>"
+];
+
+// Execute the function and print the results
+const results = extractContent(input);
+results.forEach(result => console.log(result));
+</script>
+</body>
+</html>
